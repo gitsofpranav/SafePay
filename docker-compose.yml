@@ -19,3 +19,11 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+
+  mongodb:
+    image: mongo:7.0
+    container_name: safepay-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
