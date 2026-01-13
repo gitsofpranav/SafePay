@@ -19,8 +19,8 @@ public class Transaction {
     @Id
     private String id;
 
-    private Long senderId;
-    private Long recieverId;
+    private String senderId;
+    private String recieverId;
     // @Positive(message = "Amount must be positive")
     private Double amount;
 

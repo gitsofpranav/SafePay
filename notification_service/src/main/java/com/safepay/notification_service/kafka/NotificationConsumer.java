@@ -39,6 +39,4 @@ public class NotificationConsumer {
         System.out.println("Notification saved: " + notification);
     }
 
-
-
 }
