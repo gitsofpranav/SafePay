@@ -17,7 +17,7 @@ public class Notification {
     
     @Id
     private String id;
-    private Long userId;
+    private String userId;
     private String message;
     private LocalDateTime sentAt;
 

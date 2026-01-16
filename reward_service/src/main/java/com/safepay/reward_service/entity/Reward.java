@@ -18,10 +18,10 @@ public class Reward {
     
     @Id
     private String id;
-    private Long userId;
+    private String userId;
     private Double points;
     private LocalDateTime sentAt;
     @Indexed(unique = true)
-    private Long transactionId;
+    private String transactionId;
 
 }

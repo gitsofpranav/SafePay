@@ -26,10 +26,10 @@ public class Transaction {
     private String id;
 
     @Indexed
-    private Long senderId;
+    private String senderId;
 
     @Indexed
-    private Long receiverId;
+    private String receiverId;
 
    
     private Double amount;
