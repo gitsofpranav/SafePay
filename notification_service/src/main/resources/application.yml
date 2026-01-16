@@ -1,0 +1,20 @@
+ server:
+  port: 8084
+
+  spring:
+   application:
+    name: notification_service
+   data:
+    mongodb:
+      uri: mongodb+srv://dewanganbackup_db_user:${MONGO_PASSWORD}@notify.s8mcu0s.mongodb.net/safepay_notification_db?appName=notify
+      auto-index-creation: true
+ 
+ kafka:
+  consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.paypal.notification_service.entity"
+        spring.json.value.default.type: com.paypal.notification_service.entity.Transaction
