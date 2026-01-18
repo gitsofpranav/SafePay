@@ -1,35 +1,38 @@
 server:
- port: 8080
+  port: 8080
 
 spring:
- application:
-   name: api_gateway_service
+  application:
+    name: api_gateway_service
 
- cloud:
+  cloud:
     gateway:
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-      routes:   
-        # user micro service
-        - id: user_service
-          uri: http://localhost:8081
-          predicates:
-              -Path=/auth/**
+      server:
+        webflux:
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
 
-        # Transaction micro service
-        - id: transaction_service
-          uri: http://localhost:8082
-          predicates:
-               -Path=/api/transactions/**
+          routes:
+            # User microservice
+            - id: user_service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/auth/**
 
-        # reward micro service
-        - id: reward_service
-          uri: http://localhost:8089
-          predicates:
-               -Path=/api/rewards/**
+            # Transaction microservice
+            - id: transaction_service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/transactions/**
 
-        # Notification micro service
-        - id: notification_service
-          uri: http://localhost:8084
-          predicates:
-               -Path=/api/notify/**       
+            # Reward microservice
+            - id: reward_service
+              uri: http://localhost:8089
+              predicates:
+                - Path=/api/rewards/**
+
+            # Notification microservice
+            - id: notification_service
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/notify/**
