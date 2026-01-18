@@ -1,0 +1,35 @@
+server:
+ port: 8080
+
+spring:
+ application:
+   name: api_gateway_service
+
+ cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:   
+        # user micro service
+        - id: user_service
+          uri: http://localhost:8081
+          predicates:
+              -Path=/auth/**
+
+        # Transaction micro service
+        - id: transaction_service
+          uri: http://localhost:8082
+          predicates:
+               -Path=/api/transactions/**
+
+        # reward micro service
+        - id: reward_service
+          uri: http://localhost:8089
+          predicates:
+               -Path=/api/rewards/**
+
+        # Notification micro service
+        - id: notification_service
+          uri: http://localhost:8084
+          predicates:
+               -Path=/api/notify/**       
