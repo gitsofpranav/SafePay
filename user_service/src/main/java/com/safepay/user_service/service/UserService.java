@@ -16,6 +16,13 @@ public class UserService {
     private UserRepository userRepository;
 
     public User createUser(User user) {
+        User savedUser = userRepository.save(user);
+        // try {
+        //     CreateWaletRequest request = new CreateWallextRequest();
+        //     request.setUserId(savedUser.getId());
+        // } catch (Exception e) {
+        //     // TODO: handle exception
+        // }
         return userRepository.save(user);
     }
 
