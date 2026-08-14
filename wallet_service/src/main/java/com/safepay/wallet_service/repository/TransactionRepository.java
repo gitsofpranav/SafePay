@@ -12,4 +12,6 @@ public interface TransactionRepository extends MongoRepository<Transaction, Stri
     List<Transaction> findByWalletId(String walletId);
 
     List<Transaction> findByWalletIdAndType(String walletId, String type);
+
+    boolean existsByReferenceId(String referenceId);
 }

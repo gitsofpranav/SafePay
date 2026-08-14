@@ -15,6 +15,7 @@ public class Transaction {
     private String type;
     private Long amount;
     private String status;
+    private String referenceId;
     private LocalDateTime createdAt;
 
     public Transaction() {
@@ -22,10 +23,15 @@ public class Transaction {
     }
 
     public Transaction(String walletId, String type, Long amount, String status) {
+        this(walletId, type, amount, status, null);
+    }
+
+    public Transaction(String walletId, String type, Long amount, String status, String referenceId) {
         this.walletId = walletId;
         this.type = type;
         this.amount = amount;
         this.status = status;
+        this.referenceId = referenceId;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -63,6 +69,14 @@ public class Transaction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
     }
 
     public LocalDateTime getCreatedAt() {

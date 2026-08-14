@@ -7,18 +7,14 @@ import jakarta.validation.constraints.Size;
 
 public class DebitRequest {
 
-    @NotBlank(message = "userId is required")
     private String userId;
 
-    @NotBlank(message = "currency is required")
     @Size(min = 3, max = 3, message = "currency must be a 3-letter ISO code")
     private String currency;
 
-    @NotNull(message = "amount is required")
     @Min(value = 1, message = "amount must be greater than 0")
     private Long amount;
 
-    @NotBlank(message = "referenceId is required for idempotency")
     private String referenceId;
 
     public DebitRequest() {}

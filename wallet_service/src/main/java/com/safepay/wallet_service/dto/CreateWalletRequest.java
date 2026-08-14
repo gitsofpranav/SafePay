@@ -5,10 +5,9 @@ import jakarta.validation.constraints.Size;
 
 public class CreateWalletRequest {
 
-    @NotBlank(message = "userId is required")
+
     private String userId;
 
-    @NotBlank(message = "currency is required")
     @Size(min = 3, max = 3, message = "currency must be a 3-letter ISO code")
     private String currency;
 

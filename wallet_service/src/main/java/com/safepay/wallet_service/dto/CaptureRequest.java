@@ -4,10 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CaptureRequest {
 
-    @NotBlank(message = "holdReference is required")
     private String holdReference;
 
-    @NotBlank(message = "referenceId is required for idempotency")
+
     private String referenceId;
 
     public CaptureRequest() {}

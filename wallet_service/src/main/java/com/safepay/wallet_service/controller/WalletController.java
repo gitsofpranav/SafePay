@@ -1,7 +1,8 @@
 package com.safepay.wallet_service.controller;
 
-import com.paypal.wallet_service.dto.*;
-import com.paypal.wallet_service.service.WalletService;
+import com.safepay.wallet_service.dto.*;
+import com.safepay.wallet_service.service.WalletService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

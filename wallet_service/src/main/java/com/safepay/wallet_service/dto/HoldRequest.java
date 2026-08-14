@@ -18,6 +18,9 @@ public class HoldRequest {
     @Min(value = 1, message = "amount must be greater than 0")
     private Long amount;
 
+    @NotBlank(message = "holdReference is required")
+    private String holdReference;
+
     public HoldRequest() {}
 
     public String getUserId() {
@@ -42,5 +45,13 @@ public class HoldRequest {
 
     public void setAmount(Long amount) {
         this.amount = amount;
+    }
+
+    public String getHoldReference() {
+        return holdReference;
+    }
+
+    public void setHoldReference(String holdReference) {
+        this.holdReference = holdReference;
     }
 }
