@@ -1,20 +1,22 @@
- server:
+server:
   port: 8084
 
-  spring:
-   application:
+spring:
+  application:
     name: notification_service
-   data:
+  data:
     mongodb:
       uri: ${MONGODB_URI:mongodb://localhost:27017/safepay_notification_db}
       auto-index-creation: true
- 
- kafka:
-  consumer:
+
+  kafka:
+    consumer:
       group-id: notification-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
-        spring.json.trusted.packages: "com.paypal.notification_service.entity"
-        spring.json.value.default.type: com.paypal.notification_service.entity.Transaction
+        "[spring.deserializer.value.delegate.class]": org.springframework.kafka.support.serializer.JsonDeserializer
+        "[spring.json.trusted.packages]": "*"
+        "[spring.json.value.default.type]": com.safepay.notification_service.entity.Transaction
+        "[spring.json.use.type.headers]": false
