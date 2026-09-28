@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafePay - Digital Payments Microservices Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+    }
+    .header {
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.15) 0%, rgba(11, 15, 25, 0) 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--success);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+    h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+    h1 span { background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 650px; margin: 0 auto; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
+    .card-title span.port { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 2px 8px; background: #1f2937; border-radius: 4px; color: var(--accent); }
+    
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #c9d1d9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); }
+    
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: var(--primary-hover); }
+    
+    .response-box {
+      margin-top: 1rem;
+      background: #050811;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #38bdf8;
+      max-height: 220px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .architecture-box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      overflow-x: auto;
+    }
+    
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--card-border); font-size: 0.85rem; }
+    th { color: var(--text-muted); }
+    code { font-family: 'JetBrains Mono', monospace; color: var(--accent); background: rgba(6, 182, 212, 0.1); padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge"><div class="badge-dot"></div> AWS Cloud Deployment Online</div>
+    <h1><span>SafePay</span> Digital Payments Engine</h1>
+    <p class="subtitle">Java 21 Spring Boot Microservices Architecture running with MongoDB and Apache Kafka event streaming.</p>
+  </header>
+
+  <div class="container">
+    
+    <!-- Architecture Summary -->
+    <div class="architecture-box">
+      <strong style="color: #f8fafc;">System Architecture Topology:</strong><br><br>
+Client / Web Portal (Port 80)
+   └──> API Gateway (Port 8080)
+          ├── [Auth / Users]        ──> User Service (Port 8081) ──────> MongoDB
+          ├── [Transactions]       ──> Transaction Service (Port 8082) ──> Kafka Topic (txn-initiated)
+          ├── [Wallets & Holds]     ──> Wallet Service (Port 8083) ─────> MongoDB
+          ├── [Reward Events]       ──> Reward Service (Port 8089) <──── Kafka Consumer
+          └── [Notification Hub]   ──> Notification Service (Port 8084)< Kafka Consumer
+    </div>
+
+    <!-- Live Testing Grid -->
+    <div class="grid">
+      <!-- User Auth Card -->
+      <div class="card">
+        <div class="card-title">
+          User Authentication
+          <span class="port">:8081</span>
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="authName" value="Asha Kumar">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authEmail" value="asha@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authPassword" value="SecureP@ss123">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button onclick="registerUser()">Sign Up</button>
+          <button onclick="loginUser()" style="background: #374151;">Log In</button>
+        </div>
+        <div class="response-box" id="authResponse">// Auth response will display here...</div>
+      </div>
+
+      <!-- Wallet Management Card -->
+      <div class="card">
+        <div class="card-title">
+          Wallet Operations
+          <span class="port">:8083</span>
+        </div>
+        <div class="form-group">
+          <label>User ID</label>
+          <input type="text" id="walletUserId" placeholder="User ID from Auth">
+        </div>
+        <div class="form-group">
+          <label>Amount ($)</label>
+          <input type="number" id="walletAmount" value="500">
+        </div>
+        <div class="form-group">
+          <label>Reference ID</label>
+          <input type="text" id="walletRefId" value="REF-TXN-101">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button onclick="createWallet()">Create Wallet</button>
+          <button onclick="creditWallet()" style="background: #059669;">Credit</button>
+          <button onclick="getWallet()" style="background: #374151;">Get Balance</button>
+        </div>
+        <div class="response-box" id="walletResponse">// Wallet response will display here...</div>
+      </div>
+
+      <!-- Transaction Service Card -->
+      <div class="card">
+        <div class="card-title">
+          Initiate Transaction
+          <span class="port">:8082 &rarr; Kafka</span>
+        </div>
+        <div class="form-group">
+          <label>Sender Account / User ID</label>
+          <input type="text" id="txSender" value="USER-001">
+        </div>
+        <div class="form-group">
+          <label>Receiver Account</label>
+          <input type="text" id="txReceiver" value="USER-002">
+        </div>
+        <div class="form-group">
+          <label>Transaction Amount ($)</label>
+          <input type="number" id="txAmount" value="150">
+        </div>
+        <button onclick="createTransaction()">Dispatch Transaction</button>
+        <div class="response-box" id="txResponse">// Transaction & Kafka event stream response...</div>
+      </div>
+    </div>
+
+    <!-- API Reference Table -->
+    <div class="card">
+      <div class="card-title">Registered API Gateway Endpoints</div>
+      <table>
+        <thead>
+          <tr><th>Service</th><th>Method</th><th>Route</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>User Service</td><td>POST</td><td><code>/auth/signup</code></td><td>Register user account and credentials</td></tr>
+          <tr><td>User Service</td><td>POST</td><td><code>/auth/login</code></td><td>Authenticate and generate JWT bearer token</td></tr>
+          <tr><td>Wallet Service</td><td>POST</td><td><code>/api/v1/wallets</code></td><td>Initialize a new digital balance wallet</td></tr>
+          <tr><td>Wallet Service</td><td>POST</td><td><code>/api/v1/wallets/credit</code></td><td>Add funds using idempotent reference ID</td></tr>
+          <tr><td>Wallet Service</td><td>GET</td><td><code>/api/v1/wallets/{userId}</code></td><td>Fetch user wallet balance and hold state</td></tr>
+          <tr><td>Transaction Service</td><td>POST</td><td><code>/api/transactions/create</code></td><td>Process payment & broadcast to Kafka topic <code>txn-initiated</code></td></tr>
+          <tr><td>Reward Service</td><td>GET</td><td><code>/api/rewards/**</code></td><td>Track cashback and transaction rewards</td></tr>
+          <tr><td>Notification Service</td><td>GET</td><td><code>/api/notify/**</code></td><td>Deliver payment alerts and push notifications</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    let authToken = localStorage.getItem('jwt') || '';
+
+    async function registerUser() {
+      const data = {
+        name: document.getElementById('authName').value,
+        email: document.getElementById('authEmail').value,
+        password: document.getElementById('authPassword').value
+      };
+      try {
+        const res = await fetch('/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        document.getElementById('authResponse').textContent = JSON.stringify(json, null, 2);
+        if (json.id) document.getElementById('walletUserId').value = json.id;
+      } catch (err) {
+        document.getElementById('authResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function loginUser() {
+      const data = {
+        email: document.getElementById('authEmail').value,
+        password: document.getElementById('authPassword').value
+      };
+      try {
+        const res = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        document.getElementById('authResponse').textContent = JSON.stringify(json, null, 2);
+        if (json.token) {
+          authToken = json.token;
+          localStorage.setItem('jwt', authToken);
+        }
+      } catch (err) {
+        document.getElementById('authResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function createWallet() {
+      const data = { userId: document.getElementById('walletUserId').value || 'USER-101' };
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+        const res = await fetch('/api/v1/wallets', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        document.getElementById('walletResponse').textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        document.getElementById('walletResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function creditWallet() {
+      const data = {
+        userId: document.getElementById('walletUserId').value || 'USER-101',
+        amount: parseFloat(document.getElementById('walletAmount').value),
+        referenceId: document.getElementById('walletRefId').value
+      };
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+        const res = await fetch('/api/v1/wallets/credit', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        document.getElementById('walletResponse').textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        document.getElementById('walletResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function getWallet() {
+      const userId = document.getElementById('walletUserId').value || 'USER-101';
+      try {
+        const headers = {};
+        if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+        const res = await fetch('/api/v1/wallets/' + userId, { headers });
+        const json = await res.json();
+        document.getElementById('walletResponse').textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        document.getElementById('walletResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function createTransaction() {
+      const data = {
+        sender: document.getElementById('txSender').value,
+        receiver: document.getElementById('txReceiver').value,
+        amount: parseFloat(document.getElementById('txAmount').value)
+      };
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+        const res = await fetch('/api/transactions/create', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        document.getElementById('txResponse').textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        document.getElementById('txResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

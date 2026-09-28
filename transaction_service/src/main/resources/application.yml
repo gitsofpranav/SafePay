@@ -15,5 +15,5 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb+srv://dewanganbackup_db_user:${MONGO_PASSWORD}@transaction.6nlfagz.mongodb.net/safepay_reward_db?appName=transaction
+      uri: ${MONGODB_URI:mongodb://localhost:27017/transactionService}
       database: transactionService

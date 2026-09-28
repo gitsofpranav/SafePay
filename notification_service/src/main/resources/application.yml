@@ -6,7 +6,7 @@
     name: notification_service
    data:
     mongodb:
-      uri: mongodb+srv://dewanganbackup_db_user:${MONGO_PASSWORD}@notify.s8mcu0s.mongodb.net/safepay_notification_db?appName=notify
+      uri: ${MONGODB_URI:mongodb://localhost:27017/safepay_notification_db}
       auto-index-creation: true
  
  kafka:
